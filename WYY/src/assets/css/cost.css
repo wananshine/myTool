@@ -62,6 +62,11 @@
   position: relative;
   overflow: hidden;
 }
+.block {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
 /* ***********************分割线************************************************** */
 .lesspublic,
 .lessnav ul {
