@@ -42,9 +42,9 @@
 
     <!-- fontSize 设置方法三： -->
     <script type="text/javascript">
-    	//tb 淘宝方法
+        //tb 淘宝方法
         var docEl=document.documentElement;
-    	function setFontSize(){
+        function setFontSize(){
             var scale = 1 / window.devicePixelRatio;
             dpr=window.devicePixelRatio||1;
             //设置data-dpi属性，留作的css hack之用
@@ -53,20 +53,19 @@
             document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
             document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + 'px';
         }
-	    var _t = null;
+        var _t = null;
         window.addEventListener("resize", function () {
             clearTimeout(_t);
             _t = setTimeout(setFontSize, 100);
         }, false);
-        setFontSize();	
-	    	
-
-		//wy 网易方法
-		//var docEl=document.documentElement;
-    	//var scale = 1 / devicePixelRatio;
-    	//dpr=window.devicePixelRatio||1;
-    	//设置data-dpi属性，留作的css hack之用
-		//docEl.setAttribute('data-dpr',dpr);
+        setFontSize();  
+            
+        //wy 网易方法
+        //var docEl=document.documentElement;
+        //var scale = 1 / devicePixelRatio;
+        //dpr=window.devicePixelRatio||1;
+        //设置data-dpi属性，留作的css hack之用
+        //docEl.setAttribute('data-dpr',dpr);
         //var deviceWidth = document.documentElement.clientWidth;
         //if(deviceWidth > 750) deviceWidth = 750;
         //document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
