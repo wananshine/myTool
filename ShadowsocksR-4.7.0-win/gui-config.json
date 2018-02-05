@@ -1,0 +1,58 @@
+{
+	"configs" : [
+		{
+			"remarks" : "",
+			"id" : "508DC4C05C54DBD3E661316A88DA8075",
+			"server" : "209.250.229.17",
+			"server_port" : 1002,
+			"server_udp_port" : 0,
+			"password" : "20125013ping",
+			"method" : "aes-256-cfb",
+			"protocol" : "auth_sha1_v4",
+			"protocolparam" : "",
+			"obfs" : "plain",
+			"obfsparam" : "",
+			"remarks_base64" : "",
+			"group" : "FreeSSR-public",
+			"enable" : true,
+			"udp_over_tcp" : false
+		}
+	],
+	"index" : 0,
+	"random" : true,
+	"sysProxyMode" : 3,
+	"shareOverLan" : false,
+	"localPort" : 1080,
+	"localAuthPassword" : null,
+	"dnsServer" : "",
+	"reconnectTimes" : 2,
+	"randomAlgorithm" : 3,
+	"randomInGroup" : false,
+	"TTL" : 0,
+	"connectTimeout" : 5,
+	"proxyRuleMode" : 2,
+	"proxyEnable" : false,
+	"pacDirectGoProxy" : false,
+	"proxyType" : 0,
+	"proxyHost" : null,
+	"proxyPort" : 0,
+	"proxyAuthUser" : null,
+	"proxyAuthPass" : null,
+	"proxyUserAgent" : null,
+	"authUser" : null,
+	"authPass" : null,
+	"autoBan" : false,
+	"sameHostForSameTarget" : false,
+	"keepVisitTime" : 180,
+	"isHideTips" : false,
+	"nodeFeedAutoUpdate" : true,
+	"serverSubscribes" : [
+
+	],
+	"token" : {
+
+	},
+	"portMap" : {
+
+	}
+}
