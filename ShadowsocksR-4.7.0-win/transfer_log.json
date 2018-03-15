@@ -1,6 +1,14 @@
 {
 	"209.250.229.17" : {
-		"totalUploadBytes" : 65980405,
-		"totalDownloadBytes" : 648073540
+		"totalUploadBytes" : 90223443,
+		"totalDownloadBytes" : 826167190
+	},
+	"104.238.158.132" : {
+		"totalUploadBytes" : 1467584,
+		"totalDownloadBytes" : 64182225
+	},
+	"199.247.9.250" : {
+		"totalUploadBytes" : 26568060,
+		"totalDownloadBytes" : 363869519
 	}
 }

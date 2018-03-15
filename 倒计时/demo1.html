@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>当前系统时间</title>
+<link rel="stylesheet" href="style.css"  />
+
+<script language="javascript" type="text/javascript">    
+
+    function checkTime(i)
+    {
+        if(i<10)
+        {
+            i="0"+i;
+        }
+        return i;
+    }
+    var time = setInterval('showTime()',500);
+    function showTime()
+    {
+      　var timedate= new Date("2018/10/01,10:13:55");                //自定义结束时间  
+    　　var now = new Date();                                         //获取当前时间
+    　　var date = parseInt(timedate.getTime() - now.getTime())/1000; //得出的为秒数；
+    　  if(date <= 0)
+    　  {
+    　      document.getElementById("txtshow").innerHTML="倒计时已经结束";
+    　      clearInterval(time);
+    　  }
+    　　var day = parseInt(date/60/60/24);     
+        var hour = parseInt(date/60/60%24);
+        var minute = parseInt(date/60%60);
+        var second = parseInt(date%60);
+        hour = checkTime(hour);
+        minute = checkTime(minute);
+        second = checkTime(second);
+        var leftTime = day+"天"+hour+"时"+minute+"分"+second+"秒";
+        document.getElementById('timeShow').innerHTML = leftTime;
+        time;        
+    }
+
+</script>
+</head>
+<body>
+<div class="content1">
+  <div id="timeShow">显示时间的位置</div>
+</div>
+</body>
+</html>
