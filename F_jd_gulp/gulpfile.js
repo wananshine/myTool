@@ -1,5 +1,6 @@
 //导入工具包 require('node_modules里对应模块')
 var gulp = require('gulp'), //本地安装gulp所用到的地方
+	clean = require('gulp-clean'),  //清除冗余代码
 	uglify = require('gulp-uglify'),  //js压缩
 	concat = require('gulp-concat'),   //js合并
 	less = require('gulp-less'),       //less编译成css
@@ -46,37 +47,45 @@ function errorLog(error){
 }
 
 
+//清除代码冗余
+// gulp.task('clean', function(){
+// 	gulp.src('build', {read: false})
+//         	.pipe(clean());
+// });
+
+
 // Scripts Task
 gulp.task('scripts', function(){
 	gulp.src(['js/index.js', 'js/a.js'])
-	.pipe(plumber())
-	.pipe(concat('mian.js'))
-	.pipe(uglify())
-	.pipe(rev())
-	.on('error',(error)=>{
-		console.log(error)
-	})
-	.pipe(gulp.dest('build/minjs'))
-	.pipe(rev.manifest())
-	.pipe(gulp.dest('build/rev/js'));
+			.pipe(plumber())
+			.pipe(concat('mian.js'))
+			.pipe(uglify())
+			.pipe(rev())
+			.on('error',(error)=>{
+				console.log(error)
+			})
+			.pipe(gulp.dest('build/minjs'))
+			.pipe(rev.manifest())
+			.pipe(gulp.dest('build/rev/js'));
 })
 
 
 //Stytls Task
 gulp.task('styles', function(){
 	gulp.src('less/**/*.less')
-	.pipe(less({
-		style: 'compressed'
-	}))
-	.on('error', errorLog)
-	.pipe(minicss())
-	.pipe(rev())
-	.pipe(gulp.dest('build/css'))
-	.pipe(batchReplace(/images/g, './images'))
-	.pipe(rev.manifest())
-	.pipe(gulp.dest('build/rev/css'))
-	.pipe(livereload());
+			.pipe(less({
+				style: 'compressed'
+			}))
+			.on('error', errorLog)
+			.pipe(minicss())
+			.pipe(rev())
+			.pipe(gulp.dest('build/css'))
+			.pipe(batchReplace(/images/g, './images'))
+			.pipe(rev.manifest())
+			.pipe(gulp.dest('build/rev/css'))
+			.pipe(livereload());
 });
+
 
 // gulp.task('styles', function(){
 // 	gulp.src(['less/indexCss/base.less','less/indexCss/style.less'])
@@ -100,9 +109,12 @@ gulp.task('styles', function(){
 
 // Images Task
 gulp.task('images', function(){
-	gulp.src('images/**/*.{png,jpg,gif,webp,ico}')
-	.pipe(imagemin())
-	.pipe(gulp.dest('build/miniimg'));
+ 	gulp.src('images/**/*.{png,jpg,gif,webp,ico}')
+			.pipe(imagemin())
+			.pipe(rev())
+			.pipe(gulp.dest('build/miniimg'))
+			.pipe(rev.manifest())
+			.pipe(gulp.dest('build/rev/img'));
 });
 
 
@@ -111,53 +123,62 @@ var replaceThis = [
 	[ 'original', 'replacement' ]
 ];
  
+
 //Html替换css文件版本  
 gulp.task('revHtmkCss', function(){
 	gulp.src(['build/rev/css/*.json', 'index.html'])
-	.pipe(revCollector(
-		{
-			replaceReved: true,
-			replacements: {
-				'/css/': '/build/css/'
-			}
-		}
-	))
-	.pipe(gulp.dest('build/'));
+			.pipe(revCollector(
+				{
+					replaceReved: true,
+					dirReplacements: {
+						'/css/': '/build/css/'
+					}
+				}
+			))
+			.pipe(gulp.dest('build/caption'));
 });
+
+
 
 //Html替换img文件版本  
 gulp.task('revHtmkImg', function(){
-	gulp.src(['build/rev/css/*.json', 'index.html'])
-	.pipe(revCollector(
-		{
-			replaceReved: true,
-			replacements: {
-				'/css/': '/build/css/'
-			}
-		}
-	))
-	.pipe(gulp.dest('build/'));
+	gulp.src(['build/rev/img/*.json', 'index.html'])
+			.pipe(revCollector(
+				{
+					replaceReved: true,
+					replacements: {
+						'/css/': '/build/miniimg/'
+					}
+				}
+			))
+			.pipe(gulp.dest('build/'));
 });
 
-//Html替换js文件版本  
+
+
+
+//Html替换js文件版本 
 gulp.task('revHtmkJs', function(){
 	gulp.src(['build/rev/js/*.json', 'index.html'])
-	.pipe(revCollector(
-		{
-			replaceReved: true,
-			replacements: {
-				'./js/': '/build/minjs/'
-			}
-		}
-	))
-	.pipe(gulp.dest('build/'));
+			.pipe(revCollector(
+				{
+					replaceReved: true,
+					replacements: {
+						'./js/': '/build/minjs/'
+					}
+				}
+			))
+			.pipe(gulp.dest('build/'));
 });
+
+
 
 
 // Watch Task
 // Watches JS less images
 gulp.task('watch', function(){
 	var server = livereload();
+	// gulp.watch('build/*', ['clean']);
 	gulp.watch('js/*.js', ['scripts']);
 	gulp.watch('less/**/*.less', ['styles']);
 	gulp.watch('images/**/*.{png,jpg,gif,webp,ico}', ['images']);
@@ -165,7 +186,7 @@ gulp.task('watch', function(){
 
 
 //定义默认任务
-gulp.task('default', [ 'scripts', 'styles', 'images', 'revHtmkCss', 'revHtmkJs', 'watch' ])
+gulp.task('default', [ 'scripts', 'styles', 'images', 'revHtmkCss', 'revHtmkJs', 'revHtmkImg', 'watch' ])
 
 
 
